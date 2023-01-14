@@ -1,0 +1,1252 @@
+﻿
+@{
+    ViewBag.Title = "Payment";
+}
+
+
+<html>
+
+<head>
+    <style>
+
+        .field_class {
+            width: 100%;
+            border-radius: 6px;
+            border-style: solid;
+            border-width: 1px;
+            height: 30px;
+            width: 195px;
+            padding: 9px 0px;
+            text-indent: 9px;
+            margin-top: 3px;
+            margin-bottom: 5px;
+            font-family: 'system-ui';
+            font-size: 15px;
+            /*0.9rem;*/
+        }
+
+        .field_drop {
+            width: 100%;
+            border-radius: 6px;
+            border-style: solid;
+            border-width: 1px;
+            height: 30px;
+            width: 170px;
+            padding: 4px 0px;
+            text-indent: 9px;
+            font-family: 'system-ui';
+            font-size: 15px;
+            /*0.9rem;*/
+        }
+
+        .btnSettl {
+            border-style: none;
+            border-radius: 5px;
+            border-color: inherit;
+            border-width: medium;
+            background-color: red;
+            color: floralwhite;
+            padding: 4px 8px;
+            font-size: 12px;
+            margin: 8px 0;
+            cursor: pointer;
+            position: center;
+            font-family: 'system-ui';
+            text-transform: uppercase;
+            letter-spacing: .8px;
+            box-shadow: 2px 2px 5px rgb(0,0,0,0.2);
+            /*  border-radius:100px;
+        */
+        }
+
+        #btnDscount {
+            border-style: none;
+            border-radius: 5px;
+            background-color: #04AA6D;
+            padding: 4px 8px;
+            color: floralwhite;
+            font-family: 'system-ui';
+            margin-top: 10px;
+            cursor: pointer;
+        }
+
+            #btnDscount:hover {
+                opacity: 0.8;
+            }
+
+        
+        #btnPayment {
+            border-style: none;
+            border-radius: 5px;
+            background-color: #04AA6D;
+            padding: 4px 8px;
+            color: floralwhite;
+            font-family: 'system-ui';
+            margin-top: 10px;
+            cursor: pointer;
+        }
+
+            #btnPayment:hover {
+                opacity: 0.8;
+            }
+
+        #btnOK {
+            border-style: none;
+            border-radius: 5px;
+            background-color: red;
+            padding: 4px 8px;
+            color: floralwhite;
+            font-family: 'system-ui';
+            margin-top: 10px;
+            cursor: pointer;
+        }
+
+            #btnOK:hover {
+                opacity: 0.8;
+            }
+
+
+    </style>
+</head>
+<body>
+
+
+    <div class="parents" style="height: 550px;">
+        @*<div style="float: left; width: 30%; padding: 10px; height: 550px; background-color: floralwhite; overflow: scroll; " class="border">
+            <asp:Label runat="server" Text="Label" style="margin-left:20px; font-size:20px;">Items </asp:Label>
+
+
+            <br />
+
+
+        </div>*@
+
+        <br />
+        <br />
+
+        <div style="float: left; block-size: fit-content; width: 30%; padding: 10px;  background-color: white; margin-left: 500px; border: 1px solid lightgrey; border-radius: 8px; font-family: 'system-ui'; box-shadow: 5px 5px 10px rgb(0,0,0,0.3); " class="border">
+            <asp:Label runat="server" Text="Label" style="margin-right:20px; font-size:20px;">Payment </asp:Label>
+
+            <br />
+            <br />
+            <center>
+
+
+                <asp:Label runat="server" Text="Label" style="margin-right:32px">Total: </asp:Label>
+                <input type="text" id="totbill" name="totbill" class="field_class" style="width:170px; height:8px;" />
+                <br />
+
+                <asp:Label runat="server" id="dscnt" Text="Label" style="margin-right:10px">Discounts: </asp:Label>
+
+                <select id="itemDiscount" class="field_drop" style="margin-left:20px;">
+
+
+                    <option class="none" id="none">
+                        <asp:Label runat="server" Text="Label">None </asp:Label>
+
+
+                    </option>
+
+
+                    <option class="senior" id="senior">
+                        <asp:Label runat="server" Text="Label">Senior C. </asp:Label>
+
+
+                    </option>
+                    <option class="pwd" id="pwd">
+                        <asp:Label runat="server" Text="Label">PWD</asp:Label>
+                    </option>
+
+
+
+                </select>
+                <input type="button" id="btnDscount" class="btnDscount" name="btnsbmt" value="OK" />
+                <br />
+
+                <asp:Label runat="server" Text="Label" id="dscntDLabel" style="margin-right:14px">Discount: </asp:Label>
+
+                <input type="text" id="discount" name="discount" class="field_class" style="width:170px; height:8px;" />
+
+                <br />
+
+                <asp:Label runat="server" Text="Label" id="CardIDLabel" style="margin-right:48px">Card ID: </asp:Label>
+
+                <input type="text" id="CardID" name="CardID" class="field_class" style="width:170px; height:8px;" required />
+                <input type="button" id="btnOK" class="btnOK" name="btnsbmt" value="OK" />
+
+                <br />
+                <asp:Label runat="server" id="CardNameLabel" Text="Label" style="margin-right:22px">Name: </asp:Label>
+
+                <input type="text" id="CardName" name="CardName" class="field_class" style="width:170px; height:8px;" required />
+
+                @*<br />
+        <asp:Label runat="server" id="pyment" Text="Label" style="margin-right:2px">Payment: </asp:Label>
+        <select id="itempayment" class="field_drop" style="margin-left:36px;">
+
+
+
+
+
+            <option class="cash">
+                <asp:Label runat="server" Text="Label">Cash </asp:Label>
+
+
+            </option>
+            <option class="gcash">
+                <asp:Label runat="server" Text="Label">Gcash</asp:Label>
+            </option>
+
+
+
+        </select>
+        <input type="button" id="btnPayment" class="btnPayment" name="btnsbmt" value="OK" />
+
+        <br />*@
+
+
+                @*
+                    <asp:Label runat="server" Text="Label" style="margin-right:40px">S.C: </asp:Label>
+        <input type="text" id="sc" name="sc" class="field_class" style="width:170px; height:8px;" />
+        <br />
+
+        <asp:Label runat="server" Text="Label" id="scIDD" style="margin-right:12px">Card ID: </asp:Label>
+
+        <input type="text" id="scID" name="sc" class="field_class" style="width:170px; height:8px;" />
+
+        <br />
+        <asp:Label runat="server" id="name" Text="Label" style="margin-right:22px">Name: </asp:Label>
+
+        <input type="text" id="scName" name="sc" class="field_class" style="width:170px; height:8px;" />
+
+        <br />
+
+
+        <asp:Label runat="server" Text="Label" style="margin-right:30px">PWD: </asp:Label>
+        <input type="text" id="pwd" name="pwd" class="field_class" style="width:170px; height:8px;" />
+        <br />
+
+        <asp:Label runat="server" id="pwdCard" Text="Label" style="margin-right:12px">Card ID: </asp:Label>
+
+        <input type="text" id="pwdID" name="sc" class="field_class" style="width:170px; height:8px;" />
+
+        <br />
+        <asp:Label runat="server" id="pwdNamee" name="name" Text="Label" style="margin-right:22px">Name: </asp:Label>
+
+        <input type="text" id="pwdName" name="sc" class="field_class" style="width:170px; height:8px;" />
+
+        <br />*@
+
+                @*<asp:Label runat="server" id="CashLabel" Text="Label" style="margin-right:32px">Cash: </asp:Label>
+                <input type="number" id="cashamount" name="cashamount" class="field_class" placeholder="Enter amount" style="width:170px; height:8px;" required />
+                <input type="button" id="confrm" class="btnOK" name="btnsbmt" value="OK" required />
+
+                <br />
+                <asp:Label runat="server" id="GcashLabel" Text="Label" style="margin-right:20px">GCash: </asp:Label>
+                <input type="number" id="gcashamount" name="gcashamount" class="field_class" placeholder="Enter amount" style="width:170px; height:8px;" required />*@
+                <br />
+
+                <asp:Label runat="server" id="dscnt" Text="Label" style="margin-right:10px">Method: </asp:Label>
+
+                <select id="itemMethod" class="field_drop" style="margin-left:20px;">
+
+
+                    <option class="none" id="cashh">
+                        <asp:Label runat="server" Text="Label">Cash </asp:Label>
+
+
+                    </option>
+
+                    <option class="senior" id="gcashh">
+                        <asp:Label runat="server" Text="Label">Gcash </asp:Label>
+
+
+                </select>
+                <input type="button" id="btnmethod" class="btnOK" name="btnsbmt" value="OK" required />
+
+                <br />
+                <asp:Label runat="server" id="AmountLabel" Text="Label" style="margin-right:20px">Amount: </asp:Label>
+                <input type="number" id="amount" name="amount" class="field_class" placeholder="Enter amount" style="width:170px; height:8px;" required />
+                <input type="button" id="btnamount" class="btnOK" name="btnsbmt" value="OK" required />
+
+                <br />
+
+
+                <asp:Label runat="server" Text="Label" style="margin-right:18px">Change: </asp:Label>
+                <input type="text" id="change" name="change" class="field_class" style="width:170px; height:8px;" />
+                <br />
+                <br />
+                <br />
+                <br />
+
+
+
+                <input type="button" id="btnSettl" class="btnSettl" name="btnSettl" value="Confirm" style="width: 40%; height: 30px;" />
+
+
+
+
+            </center>
+        </div>
+
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+
+
+</body>
+
+</html>
+
+<script type="text/javascript" src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script type="text/javascript">
+
+
+    $().ready(function () {
+
+        $("#totbill").attr("disabled", "disabled");
+        $("#change").attr("disabled", "disabled");
+        $("#CardNameLabel").hide();
+        $("#CardIDLabel").hide();
+
+        $("#CardName").hide();
+        $("#CardID").hide();
+
+        $("#dscntDLabel").hide();
+        $("#discount").hide();
+
+        $("#btnOK").hide();
+
+        //settle buton hide
+        $("#btnSettl").hide();
+        
+        
+
+        $("#AmountLabel").hide();
+        $("#amount").hide();
+        $("#btnamount").hide();
+
+
+        //button from cash
+        var amount;
+        var totalchange
+
+
+        // use to display total amount
+            var numCode;
+            var discount;
+            var num;
+            var discounted;
+            ///
+
+            //button discount
+        var select; // dropdown select
+        var none;
+        var senior;
+        var pwd;
+
+
+        // change txtbox
+        var change;
+
+        var finaldisc;
+        var amount = $("#cashamount").val()
+        var computechange;
+
+
+        var card; //= $("#CardID").val();
+        var name; //= $("#CardName").val();
+
+
+        //payment method
+        var selectmethod;
+        var cashh;
+        var gcashh;
+        var amountt;
+
+        let d;
+        let ds;
+
+
+            $.post("../home/getTotalBill", {
+
+                //this is part when you are going to send data to the server.
+            }, function (res) {
+                //original payment
+                num = parseInt(res[0].payment);
+                //display payment
+                numCode = $("#totbill").val(num);
+
+                //discount
+                 discount = num * 0.20;
+                 discounted = num - discount;
+                $("#totbill").prop('disabled', true);
+
+                
+
+
+
+                $("#btnDscount").click(function () {
+
+                    $("#CardNameLabel").show();
+                    $("#CardIDLabel").show();
+                    $("#CardName").show();
+                    $("#CardID").show();
+                    $("#btnOK").show();
+
+
+                    select = $("#itemDiscount :selected").val();
+                     none = $("#none").val()
+                     senior = $("#senior").val()
+                     pwd = $("#pwd").val()
+
+                    //var amount = $("#cashamount").val()
+
+
+                    //TWO DECIMAL POINT
+                         d = discounted.toFixed(2);
+                         ds = discount.toFixed(2);
+
+                        
+
+                        $("#totbill").prop('disabled', true);
+
+
+                        if (select == none) {
+                            var nonee = select;
+                            numCode = $("#totbill").val(num);
+                            var disc = $("#discount").val(0);
+                            ds = 0;
+                            card = "";
+                            name = "";
+
+                            $("#CardNameLabel").hide();
+                            $("#CardIDLabel").hide();
+
+                            $("#CardName").hide();
+                            $("#CardID").hide();
+
+                            $("#dscntDLabel").hide();
+                            $("#discount").hide();
+
+                            $("#btnOK").hide();
+
+                         //   computechange = amount - numCode;
+                          //  change = $("#change").val(computechange);
+
+                        }
+                        else if (select == senior) {
+                            var seniorc = select;
+                            
+                            numCode = $("#totbill").val(d);
+                            finaldisc = $("#discount").val(ds);
+                          //  computechange = amount - finaldisc;
+                          //  change = $("#change").val(computechange);
+
+                        }
+
+                        else if (select == pwd) {
+
+                            var pwdd = select;
+                            numCode = $("#totbill").val(d);
+                            finaldisc = $("#discount").val(ds);
+
+                          //  computechange = amount - finaldisc;
+                          //  change = $("#change").val(computechange);
+
+                        }
+
+
+
+
+
+
+
+
+                 //btndiscount end line
+                });
+
+
+                //discount button
+                $("#btnOK").click(function () {
+
+               //     $("#dscntDLabel").show();
+                 //   $("#discount").show();
+
+
+
+                  //  $("#CardName").attr("disabled", "disabled");
+                   // $("#CardID").attr("disabled", "disabled");
+                    card = $("#CardID").val(); 
+                    name = $("#CardName").val();
+                    alert(card);
+                    alert(name);
+                    alert(ds);
+
+
+
+                    $("#discount").attr("disabled", "disabled");
+
+                    if (card == "" || name == "" ) {
+                        alert("Required");
+                    }
+                  //  else if (name == "") {
+                    //    alert("Required");
+                   // }
+
+                    else
+                    {
+
+                        $("#CardName").attr("disabled", "disabled");
+                        $("#CardID").attr("disabled", "disabled");
+
+                        $("#dscntDLabel").show();
+                        $("#discount").show();
+                    }
+                    
+
+
+                });
+
+
+               
+
+
+
+
+
+
+                //cash button
+                $("#confrm").click(function () {
+
+                    amount = $("#cashamount").val();
+                    if (amount == "") {
+                        alert("amount is required");
+
+
+
+                    }
+                    else {
+
+                        alert(amount);
+                       
+
+                         $("#btnSettl").show();
+               //         var computechange = amount - finaldisc;
+                     //   change = $("#change").val(0);
+
+                        computechange = amount - num;
+                        change = $("#change").val(computechange);
+            
+
+                        if (select == none) {
+                            computechange = amount - num;
+                           // alert(select);
+
+                            change = $("#change").val(computechange);
+
+                        }
+
+                        else if (select == senior) {
+                            computechange = amount - discounted;
+                         //   alert(select);
+
+                            change = $("#change").val(computechange);
+                        }
+
+                        else if (select == pwd)
+                        {
+                            computechange = amount - discounted;
+                          //  alert(select);
+                            change = $("#change").val(computechange);
+                        }
+                
+
+                    }
+
+             //       totalchange = $("#change").val(ds);
+
+                });
+
+
+
+
+
+
+
+                ////method button
+                $("#btnmethod").click(function () {
+
+                    alert("Redirecting...");
+                    $("#AmountLabel").show();
+                    $("#amount").show();
+                    $("#btnamount").show();
+              //      amountt = $("#cashamount").val();
+
+                    selectmethod = $("#itemMethod :selected").val();
+
+                    alert(selectmethod);
+                    gcashh = $("#gcashh").val()
+                    cashh = $("#cashh").val()
+
+                    
+
+                    //btnamount
+
+
+                });
+
+
+
+                //method button amount
+                $("#btnamount").click(function () {
+
+                    amount = $("#amount").val();
+                    if (amount == "") {
+                        alert("amount is required");
+
+
+
+                    }
+                    else {
+
+                        alert(amount);
+
+
+                        $("#btnSettl").show();
+                        //         var computechange = amount - finaldisc;
+                        //   change = $("#change").val(0);
+
+                        computechange = amount - num;
+                        change = $("#change").val(computechange);
+
+
+                        if (select == none) {
+                            computechange = amount - num;
+                            // alert(select);
+
+                            change = $("#change").val(computechange);
+
+                        }
+
+                        else if (select == senior) {
+                            computechange = amount - discounted;
+                            //   alert(select);
+
+                            change = $("#change").val(computechange);
+                        }
+
+                        else if (select == pwd) {
+                            computechange = amount - discounted;
+                            //  alert(select);
+                            change = $("#change").val(computechange);
+                        }
+
+
+                    }
+
+                    //       totalchange = $("#change").val(ds);
+
+                });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            //end line of totalbill
+            });
+            ///
+            $("#totbill").val(numCode);
+            $("#totbill").attr("disabled", "disabled");
+
+        
+       
+
+
+
+
+
+        $(".btnSettl").each(function () {
+            $(this).click(function () {
+                alert('Processing...');
+
+                alert(num); //payment amount
+                alert(ds); //discount
+
+                alert(amount); //money amount
+                alert(card);//card id
+                alert(name);//card name
+                alert(computechange);//change
+                alert(selectmethod);//payment method
+                
+                alert(select);//discount method
+
+                if (amount == "")
+                {
+                    alert(" amount is required");
+                }
+
+
+
+                $.post("../Home/PaymentTrans", {
+                    PymentTotAmnt: num,
+                    PaymentTotDscnt: ds,
+                    PaymentAmnt: amount,
+                    PaymentCardID: card,
+                    PaymentCardName: name,
+                    PaymentChange: computechange,
+                    PaymentMethd: selectmethod,
+                    PaymentDscntMethd: select
+
+
+                }, function (res) {
+
+                    if (res[0].msg == 0) {
+                        alert("Product Succesfully Added");
+                        location.reload();
+
+
+                    }
+
+                });
+
+
+
+
+
+
+                //delete
+                window.location.href = "../Home/ProductList";
+                $.post("../Home/DeleteOrd", {
+              //      itemNo: itmnum,
+
+                }, function (res) {
+                    location.reload();
+
+                    if (res[0].msg == 0) {
+                        alert('Succesfully deleted!');
+                        location.reload();
+
+                        window.location.href = "../Home/ProductList";
+                    }
+
+                });
+
+
+
+            });
+
+        });
+
+
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        //ready function end line
+    });
+
+
+
+
+
+    
+
+
+////    $().ready(function () {
+
+////        $("#totbill").attr("disabled", "disabled");
+////        $("#change").attr("disabled", "disabled");
+        
+        
+        
+////        $("#CardNameLabel").hide();
+////        $("#CardIDLabel").hide();
+
+////        $("#CardName").hide();
+////        $("#CardID").hide();
+
+////        $("#dscntDLabel").hide();
+////        $("#discount").hide();
+
+////        $("#btnOK").hide();
+
+////        //$("#CashLabel").hide();
+////        //$("#GcashLabel").hide();
+
+////        //$("#gcashamount").hide();
+////        //$("#cashamount").hide();
+
+       
+////        $("#confrm").click(function () {
+
+////            alert("hi");
+////            var amount = $("#cashamount").val();
+////            alert(amount);
+
+////            //var change = amount - ds;
+////            var totalchange = $("#change").val(ds);
+
+
+
+
+
+////        });
+
+
+//        //$("#scID").hide();
+//        //$("#scIDD").hide();
+//        //$("#name").hide();
+//        //$("#scName").hide();
+//        //$("#pwdCard").hide();
+//        //$("#pwdID").hide();
+//        //$("#pwdName").hide();
+//        //$("#pwdNamee").hide();
+
+
+
+//        //$.post("../Home/sessionPayment", {
+//        //    //    add: addrss,
+//        //}, function (res) {
+
+          
+//        //    $("#totbill").val(res[0].totpayment);
+           
+
+//        //});
+
+
+
+
+//        //btnBill
+
+
+///*
+
+//    $(function () {
+//        var numCode;
+//        var finaldisc;
+//        var total;
+//        ///
+//        $.post("../home/getTotalBill", {
+//            //this is part when you are going to send data to the server.
+//        }, function (res) {
+//            //original payment
+//            var num = parseInt(res[0].payment);
+//            numCode = $("#totbill").val(num);
+
+//            //discount
+//            var discount = num * 0.20;
+//            var discounted = num - discount;
+
+//        //    numCode = $("#totbill").val(discounted);
+//         //   finaldisc = $("#discount").val(discount);
+//   //         total = $("#discount").val(discount);
+
+//            $("#totbill").prop('disabled', true);
+//        });
+//        ///
+//        $("#totbill").val(numCode);
+//        $("#totbill").attr("disabled", "disabled");
+
+
+
+
+//    });
+
+
+
+//*/
+
+
+
+
+
+
+//    $(function () {
+//        var numCode;
+//        var finaldisc;
+//        var total;
+
+//        ///
+//        $.post("../home/getTotalBill", {
+//            //this is part when you are going to send data to the server.
+
+
+//        }, function (res) {
+//            //original payment
+//            var num = parseInt(res[0].payment);
+//            numCode = $("#totbill").val(num);
+
+//            //discount
+//            var discount = num * 0.20;
+//            var discounted = num - discount;
+
+
+
+//            //    numCode = $("#totbill").val(discounted);
+//            //   finaldisc = $("#discount").val(discount);
+//            //         total = $("#discount").val(discount);
+
+//            $("#totbill").prop('disabled', true);
+//        });
+//        ///
+//        $("#totbill").val(numCode);
+//        $("#totbill").attr("disabled", "disabled");
+
+
+
+
+//    });
+
+
+
+
+//    $("#btnDscount").click(function () {
+
+//        $("#CardNameLabel").show();
+//        $("#CardIDLabel").show();
+//        $("#CardName").show();
+//        $("#CardID").show();
+//        $("#btnOK").show();
+
+
+//        var select = $("#itemDiscount :selected").val();
+//        var none = $("#none").val()
+//        var senior = $("#senior").val()
+//        var pwd = $("#pwd").val()
+        
+//        var amount = $("#cashamount").val()
+
+
+//        ///
+//        $.post("../home/getTotalBill", {
+//            //this is part when you are going to send data to the server.
+//        }, function (res) {
+//            //original payment
+//            var num = parseInt(res[0].payment);
+//       //     numCode = $("#totbill").val(num);
+
+//            //discount
+//            //var discount = num * 0.20;
+//            //var discounted = num - discount;
+//            var discount = num * 0.20;
+//            var discounted = num - discount;
+//            let d = discounted.toFixed(2);
+//            let ds = discount.toFixed(2);
+
+//            //    numCode = $("#totbill").val(discounted);
+//            //   finaldisc = $("#discount").val(discount);
+//            //         total = $("#discount").val(discount);
+
+
+//            //var change = amount - ds;
+//            //var totalchange = $("#change").val(change);
+
+//            $("#totbill").prop('disabled', true);
+
+
+//            if (select == none) {
+//                var nonee = select;
+//                numCode = $("#totbill").val(num);
+//                var disc = $("#discount").val(0);
+
+
+//                $("#CardNameLabel").hide();
+//                $("#CardIDLabel").hide();
+
+//                $("#CardName").hide();
+//                $("#CardID").hide();
+
+//                $("#dscntDLabel").hide();
+//                $("#discount").hide();
+
+//                $("#btnOK").hide();
+
+//            }
+//            else if (select == senior) {
+//                var seniorc = select;
+//                //var discount = num * 0.20;
+//                //var discounted = num - discount;
+//                //let d = discounted.toFixed(2);
+//                //let ds = discount.toFixed(2);
+//                numCode = $("#totbill").val(d);
+//                finaldisc = $("#discount").val(ds);
+//            //         total = $("#discount").val(discount);
+
+
+//            }
+
+//            else if (select == pwd) {
+
+//                var pwdd = select;
+//                numCode = $("#totbill").val(d);
+//                finaldisc = $("#discount").val(ds);
+
+//            }
+
+
+
+
+
+
+
+
+//        });
+//        ///
+//        $("#totbill").val(numCode);
+//        $("#totbill").attr("disabled", "disabled");
+
+
+
+
+
+
+
+
+
+       
+
+
+
+
+
+
+//    });
+
+
+
+
+//        //btncnfirm
+
+
+   
+
+
+
+
+
+////    });
+
+
+
+
+
+
+
+
+
+
+
+//    $("#btnPayment").click(function () {
+
+//        $("#CashLabel").show();
+//        $("#GcashLabel").show();
+
+//        $("#gcashamount").show();
+//        $("#cashamount").show();
+
+
+
+//        $("#discount").attr("disabled", "disabled");
+//        $("#sc").attr("disabled", "disabled");
+
+
+
+
+//    });
+
+
+//    $("#btnDscount").click(function () {
+
+//        $("#CardNameLabel").show();
+//        $("#CardIDLabel").show();
+//        $("#CardName").show();
+//        $("#CardID").show();
+//        $("#btnOK").show();
+
+
+//        var select = $("#itemDiscount :selected").val();
+//        var none = $("#none").val()
+//        var senior = $("#senior").val()
+//        var pwd = $("#pwd").val()
+
+//        alert(none);
+
+//        if (select == none )
+//        {
+//            var nonee = select;
+//            alert(nonee);
+
+//        }
+//        else if (select == senior)
+//        {
+//            var seniorc = select;
+//            alert(seniorc);
+
+//        }
+
+//        else if (select == pwd) {
+
+//            var pwdd = select;
+//            alert(pwdd);
+
+//        }
+
+
+
+
+//    });
+
+
+//    $("#btnOK").click(function () {
+
+//        $("#dscntDLabel").show();
+//        $("#discount").show();
+
+
+
+//        $("#CardName").attr("disabled", "disabled");
+//        $("#CardID").attr("disabled", "disabled");
+
+
+//        $("#discount").attr("disabled", "disabled");
+
+//         //$("#gcashamount").hide();
+//        //$("#cashamount").hide();
+
+
+//    });
+
+
+//    //$("#cashamount").click(function () {
+
+       
+//    //    $("#gcashamount").attr("disabled", "disabled");
+
+
+
+
+//    //});
+
+
+//    //$("#gcashamount").click(function () {
+
+
+//    //    $("#cashamount").attr("disabled", "disabled");
+
+
+
+
+//    //});
+
+
+    
+
+
+
+
+
+
+
+//    $("#btnSettl").click(function () {
+
+//        alert("Redirecting...");
+
+
+
+
+
+//    });
+
+
+
+//            $("#btnPurchased").click(function () {
+
+//        //  window.location.href = "../Home/CreateUser";
+
+//                $.post("../Home/CheckOrder", {   //transfeing data from other table
+//                    //ItemNum: itmnum,
+//                    //ItemQty: qty,
+//                    //ItemPrice: itmprice,
+//                    //Itemtotal: total,
+//                    //ItemName: itmname
+
+//                }, function (res) {
+
+//                    if (res[0].msg == 0) {
+//                        alert("Redirecting...");
+                      
+//                        location.reload();
+//                        alert("Product Succesfully Purchased");
+//                        window.location.href = "../Home/Ordeerrrr";
+                      
+                       
+//                    }
+
+//                });
+
+
+//    $("#sc").click(function () {
+
+//        alert("SC");
+//        $("#scID").show();
+//        $("#scIDD").show();
+//        $("#name").show();
+//        $("#scName").show();
+//        $("#sc").attr("disabled", "disabled");
+//        $("#pwd").attr("disabled", "disabled");
+
+
+//    });
+
+
+</script>
+
+

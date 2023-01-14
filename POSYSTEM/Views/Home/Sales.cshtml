@@ -1,0 +1,135 @@
+﻿
+@{
+    ViewBag.Title = "Sales";
+}
+
+
+<html>
+
+<head>
+    <style>
+
+        .field_class {
+            width: 100%;
+            border-radius: 6px;
+            border-style: solid;
+            border-width: 1px;
+            height: 30px;
+            width: 195px;
+            padding: 9px 0px;
+            text-indent: 9px;
+            margin-top: 3px;
+            margin-bottom: 5px;
+            font-family: 'system-ui';
+            font-size: 15px;
+            /*0.9rem;*/
+        }
+
+        .btnConfirm {
+            border-style: none;
+            border-radius: 5px;
+            border-color: inherit;
+            border-width: medium;
+            background-color: red;
+            color: floralwhite;
+            padding: 4px 8px;
+            font-size: 12px;
+            margin: 8px 0;
+            cursor: pointer;
+            position: center;
+            font-family: 'system-ui';
+            text-transform: uppercase;
+            letter-spacing: .8px;
+            box-shadow: 2px 2px 5px rgb(0,0,0,0.2);
+            /*  border-radius:100px;
+        */
+        }
+
+       /* #btnConfirm {
+            border-style: none;
+            border-radius: 5px;
+            background-color: #04AA6D;
+            padding: 8px 20px;
+            color: floralwhite;
+            font-family: 'system-ui';
+            margin-top: 10px;
+            cursor: pointer;
+        }*/
+
+            .btnConfirm:hover {
+                opacity: 0.8;
+            }
+    </style>
+
+</head>
+
+<body>
+
+    <br />
+    <br />
+
+    <div style="float: left; block-size: fit-content; width: 30%; padding: 10px;  background-color: white; margin-left: 500px; border: 1px solid lightgrey; border-radius: 8px; font-family: 'system-ui'; box-shadow: 5px 5px 10px rgb(0,0,0,0.3); " class="border">
+        
+        <center>
+            <asp:Label runat="server" Text="Label" style="  font-size:20px;">Sales </asp:Label>
+        </center>
+        <br />
+
+
+        <center>
+            <asp:Label runat="server" Text="Label" style="margin-right:32px">Total Sales: </asp:Label>
+            <input type="text" id="totsales" name="totsales" class="field_class" style="width:170px; height:8px;" />
+            <br />
+            <asp:Label runat="server" Text="Label" style="margin-right:36px">Total Cash: </asp:Label>
+            <input type="text" id="totcash" name="totcash" class="field_class" style="width:170px; height:8px;" />
+            <br />
+            <asp:Label runat="server" Text="Label" id="scIDD" style="margin-right:24px">Total GCash: </asp:Label>
+            <input type="text" id="totgcash" name="totgcash" class="field_class" style="width:170px; height:8px;" />
+
+            <br />
+            <br />
+            <br />
+            <br />
+
+            <input type="button" class="btnConfirm" name="btnsbmt" value="Confirm" style="width: 40%; height: 30px;" />
+
+        </center>
+    </div>
+
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+
+
+</body>
+</html>
+
+<script type="text/javascript" src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script type="text/javascript">
+    $().ready(function () {
+
+        $("#totsales").attr("disabled", "disabled");
+        $("#totcash").attr("disabled", "disabled");
+        $("#totgcash").attr("disabled", "disabled");
+
+
+
+
+     
+
+
+    });
+
+
+    $(".btnConfirm").click(function () {
+
+        alert("Confirm");
+       
+
+    });
+
+
+</script>
+

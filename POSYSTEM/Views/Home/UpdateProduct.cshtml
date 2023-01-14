@@ -1,0 +1,263 @@
+﻿
+@{
+    ViewBag.Title = "UpdateProduct";
+}
+
+
+
+
+
+
+<html>
+<head>
+    <style>
+                #btnSearch {
+                    border-style: none;
+                    border-radius: 5px;
+                    border-color: inherit;
+                    border-width: medium;
+                    background-color: #04AA6D;
+                    color: floralwhite;
+                    padding: 9px 14px;
+                    margin: 8px 0;
+                    cursor: pointer;
+                    position: center;
+                    font-family: 'system-ui';
+                    text-transform: uppercase;
+                    letter-spacing: .8px;
+                    box-shadow: 2px 2px 5px rgb(0,0,0,0.2);
+                    /*  border-radius:100px;
+
+
+        */
+                }
+
+                    #btnSearch:hover {
+                        opacity: 0.8;
+                    }
+
+                #btnEdit {
+                    border-style: none;
+                    border-radius: 5px;
+                    border-color: inherit;
+                    border-width: medium;
+                    background-color: red;
+                    color: floralwhite;
+                    padding: 9px 16px;
+                    margin: 8px 0;
+                    cursor: pointer;
+                    position: center;
+                    font-family: 'system-ui';
+                    text-transform: uppercase;
+                    letter-spacing: .8px;
+                    box-shadow: 2px 2px 5px rgb(0,0,0,0.2);
+                    /*  border-radius:100px;
+        */
+                }
+
+                    #btnEdit:hover {
+                        opacity: 0.8;
+                    }
+
+                #btnUpdate {
+                    border-style: none;
+                    border-radius: 5px;
+                    border-color: inherit;
+                    border-width: medium;
+                    background-color: cornflowerblue;
+                    color: floralwhite;
+                    padding: 9px 16px;
+                    margin: 8px 0;
+                    cursor: pointer;
+                    position: center;
+                    font-family: 'system-ui';
+                    text-transform: uppercase;
+                    letter-spacing: .8px;
+                    box-shadow: 2px 2px 5px rgb(0,0,0,0.2);
+                    /*  border-radius:100px;
+        */
+                }
+
+                    #btnUpdate:hover {
+                        opacity: 0.8;
+                    }
+
+                .form_class {
+                    width: 500px;
+                    padding: 40px;
+                    border-radius: 8px;
+                    background-color: white;
+                    font-family: 'system-ui';
+                    box-shadow: 5px 5px 10px rgb(0,0,0,0.3);
+                }
+
+                .form_div {
+                    text-transform: uppercase;
+                }
+
+                    .form_div > label {
+                        letter-spacing: 2px;
+                        font-size: 1rem;
+                    }
+
+                body {
+                    background-color: #FFE6D4;
+                }
+    </style>
+</head>
+<body>
+    <br />
+    <br />
+    <br />
+
+    <form id="login_form" class="form_class" style="margin-left:25%">
+        <h2 style="margin-top:2%">Product Update</h2>
+
+        <div class="form_div">
+            Product Code<br />
+            <input type="text" id="itmcde" name="itmcde" required />
+            <input type="button" id="btnSearch" name="btnSearch" value="Search" style="width:25%;" />
+            <br />
+            Product <br />
+            <input type="text" id="itmname" name="itmname" required /><br />
+
+            Product  Category <br />
+            <input type="text" id="itmcategory" name="itmcategory" required /><br />
+
+            Product  Price <br />
+            <input type="text" id="itmprice" name="itmprice" required /><br />
+
+
+            Cup Size <br />
+            <input type="text" id="itmqty" name="itmqty" required />
+            <br />
+
+
+
+
+            <input type="button" id="btnEdit" name="btnEdit" value="Edit" style="width:25%;" />
+            <input type="button" id="btnUpdate" name="btnUpdate" value="Update" style="width:25%;" />
+
+            <script type="text/javascript" src="~/Scripts/jquery-3.4.1.min.js"></script>
+            @*<script type="text/javascript" src="~/Scripts/UpdateItem.js"></script>*@
+        </div>
+    </form>
+
+    <br />
+    <br />
+    <br />                       @*$("#itmcde").val(res[0].code);*@
+
+    <br />
+</body>
+</html>
+<script type="text/javascript">
+
+    $().ready(function () {
+
+
+        $("#btnEdit").hide();
+        $("#btnUpdate").hide();
+        $("#itmcategory").attr("disabled", "disabled");
+        $("#itmprice").attr("disabled", "disabled");
+        $("#itmname").attr("disabled", "disabled");
+        $("#itmqty").attr("disabled", "disabled");
+
+        //session
+
+        $.post("../Home/getcode", {
+
+        }, function (res) {
+            if (res[0].msg == 0) {
+               //displaying code from another page
+                $("#itmcde").val(res[0].itmcode);
+
+            } else {
+                alert('Invalid Item code');
+            }
+        });
+
+
+
+
+
+
+        $("#btnSearch").click(function () {
+
+            $("#btnEdit").attr("disabled", "disabled");
+            var itemcode = $("#itmcde").val();
+
+
+            $(itemcode).show();
+
+            $.post("../Home/SearchItem", {
+                itemcode: itemcode
+            }, function (res) {
+                if (res[0].mess == 0) {
+                    $("#btnEdit").removeAttr("disabled");
+                    $("#btnEdit").show();//I0000000003
+                    $("#itmcategory").val(res[0].desc);
+                    $("#itmprice").val(res[0].price);
+                    $("#itmname").val(res[0].product);
+                    $("#itmqty").val(res[0].qty);
+
+
+
+
+                } else {
+                    alert('Invalid Item code');
+                }
+            });
+        });
+
+        $("#btnEdit").click(function () {
+            $("#btnEdit").hide();
+            $("#btnUpdate").show();
+            $("#itmcde").attr("disabled", true);
+            $("#itmname").removeAttr("disabled");
+            $("#itmqty").removeAttr("disabled");
+            $("#itmcategory").removeAttr("disabled");
+            $("#itmprice").removeAttr("disabled");
+            /* alert($("#itmdesc").val());*/
+            alert('Processing...');
+        });
+
+        $("#btnUpdate").click(function () {
+            alert("Loading...");
+            var itemdesc = $("#itmcategory").val();
+            var itemprice = $("#itmprice").val();
+            var itemcode = $("#itmcde").val();
+            var itemname = $("#itmname").val();
+            var itemquantity = $("#itmqty").val();
+
+            $.post("../Home/UpdateItem", {
+                itemdesc: itemdesc,
+                itemprice: itemprice,
+                itemcode: itemcode,
+                itemname: itemname,
+                itemqty: itemquantity
+            }, function (res) {
+                if (res[0].mess == 0) {
+
+                    alert("Successfully Updated");
+
+                    $("#btnUpdate").hide();
+                    $("#itmcde").removeAttr("disabled");/*.val(" "); */
+                    $("#itmcategory").attr("disabled", true);/*.val(" ");*/
+                    $("#itmprice").attr("disabled", true);/*.val(" ");*/
+                    $("#itmname").attr("disabled", true);/*.val(" ");*/
+                    $("#itmqty").attr("disabled", true);/*.val(" ");*/
+                    $("#itmcategory").val("");
+                    $("#itmprice").val("");
+                    $("#itmname").val("");
+                    $("#itmqty").val("");
+                    $("#itmcde").val("");
+                    window.location.href = "../Home/EditDeleteProd";
+
+                } else
+                    alert("Ooooppppssss.. Something Wrong");
+            });
+        });
+
+    });
+
+</script>

@@ -1,0 +1,677 @@
+﻿
+
+
+@using System;
+@using System.Collections.Generic;
+@using System.Linq;
+@using System.Web;
+@using System.Web.Mvc;
+@using System.Data;
+@using System.Data.SqlClient;
+@using System.Configuration;
+@using System.Web.Configuration;
+@using System.IO;
+@using System.Drawing;
+@using System.Drawing.Imaging;
+@using MySql.Data.MySqlClient;
+
+
+@{
+    ViewBag.Title = "EditDeleteProd";
+}
+
+
+<html>
+<head>
+    <title> Category</title>
+    <style>
+        .field_class {
+            width: 100%;
+            border-radius: 6px;
+            border-style: solid;
+            border-width: 1px;
+            height: 30px;
+            width: 195px;
+            padding: 9px 0px;
+            text-indent: 9px;
+            margin-top: 3px;
+            margin-bottom: 5px;
+            font-family: 'system-ui';
+            font-size: 15px;
+            /*0.9rem;*/
+        }
+
+        #btnSaveProd {
+            border-style: none;
+            border-radius: 5px;
+            background-color: cornflowerblue;
+            padding: 8px 20px;
+            color: floralwhite;
+            font-family: 'system-ui';
+            letter-spacing: .8px;
+            display: block;
+            margin: auto;
+            margin-top: 10px;
+            box-shadow: 2px 2px 5px rgb(0,0,0,0.2);
+            cursor: pointer;
+        }
+
+            #btnSaveProd:hover {
+                opacity: 0.8;
+            }
+
+        .border {
+            width: 500px;
+            padding: 40px;
+            border-radius: 8px;
+            background-color: white;
+            font-family: 'system-ui';
+            box-shadow: 5px 5px 10px rgb(0,0,0,0.3);
+            margin-top: 5%;
+        }
+
+        body {
+            /* background-image: url('pink.jpg');
+                            background-repeat: no-repeat;
+                            background-attachment: fixed;
+                            background-size: cover;*/
+            background-color: #FFE6D4;
+        }
+
+        #btnSubmit {
+            border-style: none;
+            border-radius: 5px;
+            border-color: inherit;
+            border-width: medium;
+            background-color: #04AA6D;
+            color: floralwhite;
+            padding: 9px 16px;
+            margin: 8px 0;
+            cursor: pointer;
+            position: center;
+            font-family: 'system-ui';
+            text-transform: uppercase;
+            letter-spacing: .8px;
+            box-shadow: 2px 2px 5px rgb(0,0,0,0.2);
+            /*  border-radius:100px;
+
+                        */
+        }
+
+            #btnSubmit:hover {
+                opacity: 0.8;
+            }
+
+        #btnUpdte {
+            border-style: none;
+            border-radius: 5px;
+            border-color: inherit;
+            border-width: medium;
+            background-color: #04AA6D;
+            color: floralwhite;
+            padding: 9px 16px;
+            margin: 8px 0;
+            cursor: pointer;
+            position: center;
+            font-family: 'system-ui';
+            text-transform: uppercase;
+            letter-spacing: .8px;
+            box-shadow: 2px 2px 5px rgb(0,0,0,0.2);
+            /*  border-radius:100px;
+
+                */
+        }
+
+            #btnUpdte:hover {
+                opacity: 0.8;
+            }
+
+        #btnCart {
+            border-style: none;
+            border-radius: 5px;
+            border-color: inherit;
+            border-width: medium;
+            background-color: #04AA6D;
+            color: floralwhite;
+            padding: 9px 16px;
+            margin: 8px 0;
+            cursor: pointer;
+            position: center;
+            font-family: 'system-ui';
+            text-transform: uppercase;
+            letter-spacing: .8px;
+            box-shadow: 2px 2px 5px rgb(0,0,0,0.2);
+            /*  border-radius:100px;
+                */
+        }
+
+            #btnCart:hover {
+                opacity: 0.8;
+            }
+
+        #btnBuy {
+            border-style: none;
+            border-radius: 5px;
+            border-color: inherit;
+            border-width: medium;
+            background-color: red;
+            color: floralwhite;
+            padding: 9px 16px;
+            margin: 8px 0;
+            cursor: pointer;
+            position: center;
+            font-family: 'system-ui';
+            text-transform: uppercase;
+            letter-spacing: .8px;
+            box-shadow: 2px 2px 5px rgb(0,0,0,0.2);
+            /*  border-radius:100px;
+                */
+        }
+
+            #btnBuy:hover {
+                opacity: 0.8;
+            }
+
+
+
+        #btnMyEntry {
+            border-style: none;
+            border-radius: 5px;
+            border-color: inherit;
+            border-width: medium;
+            background-color: cadetblue;
+            color: floralwhite;
+            padding: 9px 16px;
+            margin: 8px 0;
+            cursor: pointer;
+            position: center;
+            font-family: 'system-ui';
+            text-transform: uppercase;
+            letter-spacing: .8px;
+            box-shadow: 2px 2px 5px rgb(0,0,0,0.2);
+            /*  border-radius:100px;
+                */
+        }
+
+            #btnMyEntry:hover {
+                opacity: 0.8;
+            }
+
+        #btnOrders {
+            border-style: none;
+            border-radius: 5px;
+            border-color: inherit;
+            border-width: medium;
+            background-color: coral;
+            color: floralwhite;
+            padding: 9px 16px;
+            margin: 8px 0;
+            cursor: pointer;
+            position: center;
+            font-family: 'system-ui';
+            text-transform: uppercase;
+            letter-spacing: .8px;
+            box-shadow: 2px 2px 5px rgb(0,0,0,0.2);
+            /*  border-radius:100px;
+                */
+        }
+
+            #btnOrders:hover {
+                opacity: 0.8;
+            }
+
+        #btnHistory {
+            border-style: none;
+            border-radius: 5px;
+            border-color: inherit;
+            border-width: medium;
+            background-color: lightblue;
+            color: floralwhite;
+            padding: 9px 16px;
+            margin: 8px 0;
+            cursor: pointer;
+            position: center;
+            font-family: 'system-ui';
+            text-transform: uppercase;
+            letter-spacing: .8px;
+            box-shadow: 2px 2px 5px rgb(0,0,0,0.2);
+            /*  border-radius:100px;
+                */
+        }
+
+            #btnHistory:hover {
+                opacity: 0.8;
+            }
+
+        .btnUp {
+            border-style: none;
+            border-radius: 5px;
+            border-color: inherit;
+            border-width: medium;
+            background-color: #04AA6D;
+            color: floralwhite;
+            padding: 4px 8px;
+            font-size: 10px;
+            margin: 8px 0;
+            cursor: pointer;
+            position: center;
+            font-family: 'system-ui';
+            text-transform: uppercase;
+            letter-spacing: .8px;
+            box-shadow: 2px 2px 5px rgb(0,0,0,0.2);
+            /*  border-radius:100px;
+
+        */
+        }
+
+        #btnUpdte:hover {
+            opacity: 0.8;
+        }
+
+        .btnDel {
+            border-style: none;
+            border-radius: 5px;
+            border-color: inherit;
+            border-width: medium;
+            background-color: red;
+            color: floralwhite;
+            padding: 4px 8px;
+            font-size:10px;
+            margin: 8px 0;
+            cursor: pointer;
+            position: center;
+            font-family: 'system-ui';
+            text-transform: uppercase;
+            letter-spacing: .8px;
+            box-shadow: 2px 2px 5px rgb(0,0,0,0.2);
+            /*  border-radius:100px;
+        */
+        }
+
+        #btnDelte:hover {
+            opacity: 0.8;
+        }
+
+        body {
+            background-color: #FFE6D4;
+        }
+
+        .product {
+            width: 200px;
+            padding: 5px;
+            border-radius: 8px;
+            font-size:12px;
+            background-color: white;
+            font-family: 'system-ui';
+            box-shadow: 5px 5px 10px rgb(0,0,0,0.3);
+            margin-inline: 20px;
+            /*  float: left;*/
+        }
+
+        .items {
+            display: inline-block;
+        }
+
+        #options {
+            width: 400px;
+            height: 35px;
+        }
+    </style>
+</head>
+<body>
+
+    @{
+        string connDB = "server=localhost;uid=root;database=posystem ";
+        using (var db = new MySqlConnection(connDB))
+        {
+            db.Open();
+            using (var cmd = db.CreateCommand())
+            {
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = "SELECT DISTINCT (ITMDESC) FROM PRODTBL ";
+
+                using (var reader = cmd.ExecuteReader())
+                {
+                    if (reader.HasRows)
+                    {
+                        <br />
+                        <center>
+                            <div class="custom-select">
+                                <select id="options">
+
+
+                                    @while (reader.Read())
+                                    {
+
+
+                                        <option> @reader["ITMDESC"]</option>
+
+                                    }
+
+                                </select>
+                                <input type="button" id="btnSubmit" @*class="bttnSubmit"*@ name="btnsbmt" value="Search" style="margin-right:15px;" />
+                                
+
+
+
+
+                            </div>
+
+                        </center>
+
+
+
+                    }
+                    else
+                    {
+                        <p>No Records Found!!!</p>
+                    }
+                }
+            }
+        }
+    }
+
+
+    @*try = session*@
+
+<div>
+    @{
+        if (Session["category"] != null)
+        {
+
+
+
+            using (var db = new MySqlConnection(connDB))
+            {
+                var item = Session["category"].ToString();
+
+                db.Open();
+                using (var cmd = db.CreateCommand())
+                {
+                    cmd.CommandType = CommandType.Text;
+                    cmd.CommandText = "SELECT * FROM PRODTBL WHERE ITMDESC ='" + item + "' ";
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        if (reader.HasRows)
+                        {
+
+
+                            <div class="parents" style="height: 550px;">
+
+                                <div id="source" style="float: left; width: 60%; padding: 10px; height: 550px; background-color: #C5DECD; border: 1px solid lightgrey; overflow: scroll; margin-left: 250px; margin-top: 10px; margin-bottom: 20px; " class="border">
+
+
+
+
+
+
+                                    <br />
+                                    <center>
+                                        <table>
+                                            <thead>
+                                                <tr>
+
+                                                    <th>
+                                                        @*<center> Image</center>*@
+                                                    </th>
+
+                                                </tr>
+
+                                            </thead>
+                                            <tbody>
+                                                @while (reader.Read())
+                                                {
+                                                    <tr class="items">
+
+                                                        <td>
+                                                            <center>
+                                                                <div class="product">
+                                                                    <div class="image"><img src="../Home/Image?filename=@HttpUtility.UrlEncode(reader["ITMIMG"]+"")" width="45%" style="margin-top:15px; margin-bottom:9px;" /> </div>  <br />
+                                                                    <div class="itemnum">Item Num: @String.Format("{0:0.00}", reader["ITMNUM"])</div>
+                                                                    <div class="itemname">Item Name: @String.Format("{0:0.00}", reader["ITMNAME"])</div>
+                                                                    <div class="itemdesc">Category: @String.Format("{0:0.00}", reader["ITMDESC"])</div>
+                                                                    <div class="itemqty">CupSize: @String.Format("{0:0.00}", reader["ITMSIZE"])</div>
+                                                                    <div class="itemprice">Price: ₱@String.Format("{0:0.00}", reader["ITMPRICE"])</div>
+
+
+                                                                    <input type="button" class="btnDel" name="btnsbmt" value="Delete" style="width:31%;" />
+                                                                    <input type="button" class="btnUp" name="btnsbmt" value="Edit" style="width:31%;" />
+
+                                                                </div>
+
+
+                                                            </center><br /><br />
+                                                        </td>
+                                                    </tr>
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </center>
+
+
+
+
+
+
+                                </div>
+
+                            </div>
+
+
+                        }
+                        else
+                        {
+                            <p>No Records Found!!!</p>
+                        }
+                    }
+                }
+            }
+
+
+        }
+
+
+
+
+        else
+        {
+
+            using (var db = new MySqlConnection(connDB))
+            {
+                db.Open();
+                using (var cmd = db.CreateCommand())
+                {
+                    cmd.CommandType = CommandType.Text;
+                    cmd.CommandText = "SELECT * FROM PRODTBL";
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        if (reader.HasRows)
+                        {
+
+
+                            <div class="parents" style="height: 550px;">
+
+                                <div id="source" style="float: left; width: 60%; padding: 10px; height: 550px; background-color: #C5DECD; border: 1px solid lightgrey; overflow: scroll; margin-left: 250px; margin-top: 10px; margin-bottom: 20px; " class="border">
+
+
+
+
+
+
+
+                                <center>
+                                    <table>
+                                        <thead>
+                                            <tr>
+
+                                                <th>
+                                                    @*<center> Image</center>*@
+                                                </th>
+
+                                            </tr>
+
+                                        </thead>
+                                        <tbody>
+                                            @while (reader.Read())
+                                            {
+                                                <tr class="items">
+
+
+                                                    <td>
+                                                        <center>
+                                                            <div class="product">
+                                                                <div class="image"><img src="../Home/Image?filename=@HttpUtility.UrlEncode(reader["ITMIMG"]+"")" width="45%" style="margin-top:15px; margin-bottom:9px;" /> </div>  <br />
+                                                                <div class="itemnum">Item Num: @String.Format("{0:0.00}", reader["ITMNUM"])</div>
+                                                                <div class="itemname">Item Name: @String.Format("{0:0.00}", reader["ITMNAME"])</div>
+                                                                <div class="itemdesc">Category: @String.Format("{0:0.00}", reader["ITMDESC"])</div>
+                                                                <div class="itemqty">CupSize: @String.Format("{0:0.00}", reader["ITMSIZE"])</div>
+                                                                <div class="itemprice">Price: ₱@String.Format("{0:0.00}", reader["ITMPRICE"])</div>
+
+
+                                                                <input type="button" class="btnDel" name="btnsbmt" value="Delete" style="width:31%;" />
+                                                                <input type="button" class="btnUp" name="btnsbmt" value="Edit" style="width:31%;" />
+
+                                                            </div>
+
+
+                                                        </center><br /><br />
+                                                    </td>
+                                                </tr>
+
+
+
+                                            }
+                                        </tbody>
+                                    </table>
+                                </center>
+
+
+                                </div>
+
+
+                            </div>
+
+
+
+
+                        }
+                        else
+                        {
+                            <p>No Records Found!!!</p>
+                        }
+                    }
+                }
+            }
+
+
+
+        }
+
+    }
+
+
+</div>
+
+
+</body>
+</html>
+
+<script type="text/javascript" src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script type="text/javascript">
+    $("#btnSubmit").click(function () {
+
+
+        var select = $("#options :selected").val();
+        alert('Processing...');
+        $.post("../Home/HomeCategory", {
+
+            select: select
+
+        }, function (res) {
+            if (res[0].msg == 0) {
+                location.reload();
+
+            }
+        });
+
+
+
+    });
+
+    $(".btnDel").each(function () {
+        $(this).click(function () {
+            var itmnum = $(this).closest('.product').find('.itemnum').html().split(':').pop();
+            alert('Processing...');
+
+
+            $.post("../Home/DeleteProduct", {
+                itemNo: itmnum,
+            }, function (res) {
+
+                if (res[0].msg == 0) {
+                    alert('Succesfully deleted!');
+                    location.reload();
+                }
+
+            });
+
+        });
+
+    });
+
+
+
+    $(".btnUp").each(function () {
+        $(this).click(function () {
+            var itmnum = $(this).closest('.product').find('.itemnum').html().split(':').pop();
+            alert('Processing...');
+
+            $.post("../Home/Edit", {
+                itemCode: itmnum,
+            }, function (res) {
+
+                if (res[0].msg == 0) {
+                    alert("Redirecting...");
+
+                    window.location.href = "../Home/UpdateProduct";
+                }
+
+            });
+
+
+
+
+
+
+
+        });
+
+    });
+
+
+
+    $(".btnMyEntry").click(function () {
+
+        window.location.href = "../Home/ProductEntry";
+
+
+    });
+
+    $(".btnOrders").click(function () {
+
+        window.location.href = "../Home/ManageOrder";
+
+
+    });
+
+    $(".btnHistory").click(function () {
+
+        window.location.href = "../Home/History";
+
+
+    });
+
+
+
+
+</script>

@@ -1,0 +1,211 @@
+﻿
+@{
+    ViewBag.Title = "ProductEntry";
+}
+
+
+
+<html>
+<head>
+    <style>
+        .field_class {
+            width: 100%;
+            border-radius: 6px;
+            border-style: solid;
+            border-width: 1px;
+            height: 10px;
+            width: 195px;
+            padding: 9px 0px;
+            text-indent: 9px;
+            margin-top: 3px;
+            margin-bottom: 5px;
+            font-family: 'system-ui';
+            font-size: 15px;
+            /*0.9rem;*/
+        }
+
+        #btnSaveProd {
+            border-style: none;
+            border-radius: 5px;
+            background-color: cornflowerblue;
+            padding: 8px 20px;
+            color: floralwhite;
+            font-family: 'system-ui';
+            letter-spacing: .8px;
+            display: block;
+            margin: auto;
+            margin-top: 10px;
+            box-shadow: 2px 2px 5px rgb(0,0,0,0.2);
+            cursor: pointer;
+        }
+
+            #btnSaveProd:hover {
+                opacity: 0.8;
+            }
+
+        .border {
+            width: 500px;
+            padding: 40px;
+            border-radius: 8px;
+            background-color: white;
+            font-family: 'system-ui';
+            box-shadow: 5px 5px 10px rgb(0,0,0,0.3);
+            margin-top: 5%;
+        }
+
+        body {
+            /* background-image: url('pink.jpg');
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: cover;*/
+            background-color: #FFE6D4;
+        }
+
+        #btnMyEntry {
+            border-style: none;
+            border-radius: 5px;
+            border-color: inherit;
+            border-width: medium;
+            background-color: cadetblue;
+            color: floralwhite;
+            padding: 9px 16px;
+            margin: 8px 0;
+            cursor: pointer;
+            position: center;
+            font-family: 'system-ui';
+            text-transform: uppercase;
+            letter-spacing: .8px;
+            box-shadow: 2px 2px 5px rgb(0,0,0,0.2);
+            /*  border-radius:100px;
+        */
+        }
+
+            #btnMyEntry:hover {
+                opacity: 0.8;
+            }
+
+
+        .form_div {
+            width: 200px;
+            padding: 10px;
+            border-radius: 8px;
+            background-color: white;
+            font-family: 'system-ui';
+            box-shadow: 5px 5px 10px rgb(0,0,0,0.3);
+        }
+    </style>
+</head>
+<body>
+
+    <form id="productRecord" action="../Home/ProductEntry" method="post" enctype="multipart/form-data">
+
+        <div style="height: 620px; block-size: fit-content;">
+            @*<div style="float: left; width: 2%; padding: 10px; height: 750px; background-color: #C5DECD; " class="border">
+                </div>*@
+
+
+            <div style="float: left; width: 40%; padding: 10px; height: 750px; background-color: white; border: 1px solid lightgrey; block-size: fit-content; margin-left:400px;" class="border">
+
+                <asp:Label runat="server" Text="Label" style="margin-right:46px; font-size:15px;">Product Code </asp:Label>
+                <input type="text" id="txtCode" class="field_class" name="txtCode" />
+                <br />
+                <asp:Label runat="server" Text="Label" style="margin-right: 20px; margin-right: 42px; font-size: 15px;">Product Name </asp:Label>
+                <input type="text" id="txtName" class="field_class" name="txtName" required />
+                <br />
+                <asp:Label runat="server" Text="Label" style="margin-right:20px;  font-size:15px;">Product Category </asp:Label>
+                <input type="text" id="txtDesc" class="field_class" name="txtDesc" required />
+                <br />
+                <asp:Label runat="server" Text="Label" style="margin-right: 104px;  font-size: 15px;">Price </asp:Label>
+                <input type="number" id="txtprice" class="field_class" name="txtprice" min="0" value="0" step=".01" />
+                <br />
+                <asp:Label runat="server" Text="Label" style="margin-right: 78px;  font-size: 15px;">Cup Size </asp:Label>
+                <input type="text" id="txtonhand" class="field_class" name="txtonhand" min="0" />
+                <br />
+
+                <asp:Label runat="server" Text="Label" style="margin-right: 56px;  font-size: 15px;">Date Added </asp:Label>
+                <input type="text" id="datepicker" class="field_class" name="datepicker" value="@DateTime.Now.ToShortDateString()" />
+                <br />
+                @*picture container*@
+                <div class="form_div" style="block-size:fit-content;">
+
+                    <input type="file" id="uploadImg" name="uploadImg"
+                           accept="image/png,image/jpeg,image/jpg,image/gif,image/bmp"
+                           onchange="getImagePreview()" required />
+                    <div id="preview">
+
+                    </div>
+                </div>
+
+
+                    <input class="w3-button w3-blue" id="btnSaveProd" type="submit" value="Save" style="width:35%; " /><br />
+
+
+
+
+
+
+
+
+            </div>
+            @*<div style="float: left; width: 45%; padding: 10px; height: 750px; background-color: #C5DECD; " class="border">
+                </div>*@
+        </div>
+    </form>
+
+
+
+
+
+</body>
+</html>
+
+<script type="text/javascript" src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script type="text/javascript">
+
+    $(function () {
+        var numCode;
+        ///
+        $.post("../home/getItemCode", {
+            //this is part when you are going to send data to the server.
+        }, function (res) {
+            var num = parseInt(res[0].itmcode) + 1;
+            numCode = $("#txtCode").val("I000000000" + num);
+            $("#txtCode").prop('disabled', true);
+        });
+        ///
+        $("#txtCode").val(numCode);
+        $("#productRecord").submit(function () {
+            $("#txtCode").prop('disabled', false);
+        });
+
+
+    });
+
+
+
+    function getImagePreview() {
+        var txt = (event.target.files[0].name).split(".").pop().toLowerCase();
+        if (txt == "jpg" || txt == "png" || txt == "gif" || txt == "bmp") {
+            var image = URL.createObjectURL(event.target.files[0]);
+            var imagediv = document.getElementById("preview");
+            var newimg = document.createElement('img');
+            newimg.src = image;
+            newimg.width = "200";
+            imagediv.appendChild(newimg);
+        } else {
+            alert("File uploaded is invalid");
+            $("#preview").html("");
+            $("#uploadImg").val("");
+        }
+    }
+
+
+
+    $(".btnMyEntry").click(function () {
+
+        window.location.href = "../Home/ViewProduct";
+
+
+    });
+
+</script>

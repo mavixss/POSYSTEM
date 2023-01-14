@@ -1,0 +1,413 @@
+﻿
+@{
+    ViewBag.Title = "Discounts";
+}
+
+<!DOCTYPE html>
+<!-- Coding by CodingLab | www.codinglabweb.com-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!--<title>Sidebar Menu | Side Navigation Bar</title>-->
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css" />
+    <!-- Boxicons CSS -->
+    <link href="https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css"
+          rel="stylesheet" />
+
+    <style>
+
+
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'system-ui';
+        }
+
+        body {
+            min-height: 100%;
+            background: #e3f2fd;
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 70px;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            background: #fff;
+            box-shadow: 0 0 1px rgba(0, 0, 0, 0.1);
+        }
+
+            nav .logo {
+                display: flex;
+                align-items: center;
+                margin: 0 24px;
+            }
+
+        .logo .menu-icon {
+            color: pink;
+            font-size: 24px;
+            margin-right: 14px;
+            cursor: pointer;
+        }
+
+        .logo .logo-name {
+            color: #333;
+            font-size: 22px;
+            font-weight: 500;
+        }
+
+        nav .sidebar {
+            position: fixed;
+            top: 0;
+            left: -100%;
+            height: 100%;
+            width: 260px;
+            padding: 20px 0;
+            background-color: #fff;
+            box-shadow: 0 5px 1px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s ease;
+        }
+
+        nav.open .sidebar {
+            left: 0;
+        }
+
+        .sidebar .sidebar-content {
+            display: flex;
+            height: 100%;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 30px 16px;
+        }
+
+        .sidebar-content .list {
+            list-style: none;
+        }
+
+        .list .nav-link {
+            display: flex;
+            align-items: center;
+            margin: 8px 0;
+            padding: 14px 12px;
+            border-radius: 8px;
+            text-decoration: none;
+        }
+
+        .lists .nav-link:hover {
+            background-color: #4070f4;
+        }
+
+        .nav-link .icon {
+            margin-right: 14px;
+            font-size: 20px;
+            color: #707070;
+        }
+
+        .nav-link .link {
+            font-size: 16px;
+            color: #707070;
+            font-weight: 400;
+        }
+
+        .lists .nav-link:hover .icon,
+        .lists .nav-link:hover .link {
+            color: #fff;
+        }
+
+        /*.overlay {
+            position: fixed;
+            top: 0;
+            left: -100%;
+            height: 1000vh;
+            width: 200%;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.4s ease;
+            background: rgba(0, 0, 0, 0.3);
+        }*/
+
+        nav.open ~ .overlay {
+            opacity: 1;
+            left: 260px;
+            pointer-events: auto;
+        }
+
+        .parents {
+            justify-content: center;
+            align-content: center;
+            display: flex;
+        }
+
+        .field_class {
+            width: 100%;
+            border-radius: 6px;
+            border-style: solid;
+            border-width: 1px;
+            height: 30px;
+            width: 195px;
+            padding: 9px 0px;
+            text-indent: 9px;
+            margin-top: 3px;
+            margin-bottom: 5px;
+            font-family: 'system-ui';
+            font-size: 15px;
+            /*0.9rem;*/
+        }
+
+        .btnConfirm {
+            border-style: none;
+            border-radius: 5px;
+            border-color: inherit;
+            border-width: medium;
+            background-color: #04AA6D;
+            color: floralwhite;
+            padding: 4px 8px;
+            font-size: 12px;
+            margin: 8px 0;
+            cursor: pointer;
+            position: center;
+            font-family: 'system-ui';
+            text-transform: uppercase;
+            letter-spacing: .8px;
+            box-shadow: 2px 2px 5px rgb(0,0,0,0.2);
+            /*  border-radius:100px;
+        */
+        }
+
+
+            .btnConfirm:hover {
+                opacity: 0.8;
+            }
+    </style>
+</head>
+<body>
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+
+    <div style="float: left; block-size: fit-content; width: 36%; padding: 10px;  background-color: white; margin-left: 450px; border: 1px solid lightgrey; border-radius: 8px; font-family: 'system-ui'; box-shadow: 5px 5px 10px rgb(0,0,0,0.3); " class="border">
+
+        <center>
+            <asp:Label runat="server" Text="Label" style="  font-size:20px;">Admin </asp:Label>
+        </center>
+        <br />
+
+
+        <left>
+            <asp:Label runat="server" Text="Label" style="margin-left: 20px; margin-right: 32px">Username: </asp:Label>
+            <input type="text" id="adminuser" name="adminuser" class="field_class" style="width:260px; height:8px;" />
+            <br />
+            <asp:Label runat="server" Text="Label" style="margin-left: 20px; margin-right: 38px">Password: </asp:Label>
+            <input type="text" id="adminpass" name="adminpass" class="field_class" style="width:260px; height:8px;" />
+            <br />
+
+            <br />
+            <center>
+                <input type="button" class="btnConfirm" name="btnsbmt" value="Edit" style="width: 40%; height: 30px;" />
+            </center>
+        </left>
+    </div>
+
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+
+    <div style="float: left; block-size: fit-content; width: 36%; padding: 10px; background-color: white; margin-left: 450px; margin-top: 30px; border: 1px solid lightgrey; border-radius: 8px; font-family: 'system-ui'; box-shadow: 5px 5px 10px rgb(0,0,0,0.3); " class="border">
+
+        <center>
+            <asp:Label runat="server" Text="Label" style="  font-size:20px;">User </asp:Label>
+        </center>
+        <br />
+
+
+        <left>
+            <asp:Label runat="server" Text="Label" style="margin-left: 20px; margin-right: 32px">Username: </asp:Label>
+            <input type="text" id="user" name="user" class="field_class" style="width:260px; height:10px;" />
+            <br />
+            <asp:Label runat="server" Text="Label" style="margin-left: 20px; margin-right: 38px">Password: </asp:Label>
+            <input type="text" id="pass" name="pass" class="field_class" style="width:260px; height:10px;" />
+            <br />
+
+            <br />
+            <center>
+                <input type="button" class="btnConfirm" name="btnsbmt" value="Edit" style="width: 40%; height: 30px;" />
+            </center>
+        </left>
+    </div>
+
+
+
+    <nav>
+        <div class="logo">
+            <i class="bx bx-menu menu-icon"></i>
+            <span class="logo-name">POS</span>
+        </div>
+        <div class="sidebar">
+            <div class="logo">
+                <i class="bx bx-menu menu-icon"></i>
+                <span class="logo-name">POS</span>
+            </div>
+
+            <div class="sidebar-content">
+                <ul class="lists">
+                    <li class="list">
+
+
+                        <a href="../Home/login" class="nav-link">
+                            <i class="bx bx-home-alt icon"></i>
+                            <span class="link">Dashboard</span>
+
+
+
+                        </a>
+                    </li>
+                    <li class="list">
+                        <a href="#" class="nav-link">
+                            <i class="bx bx-bar-chart-alt-2 icon"></i>
+                            <span class="link">Revenue</span>
+                        </a>
+                    </li>
+                    <li class="list">
+                        <a href="#" class="nav-link">
+                            <i class="bx bx-bell icon"></i>
+                            <span class="link">Notifications</span>
+                        </a>
+                    </li>
+                    <li class="list">
+                        <a href="#" class="nav-link">
+                            <i class="bx bx-message-rounded icon"></i>
+                            <span class="link">Messages</span>
+                        </a>
+                    </li>
+                    @*<li class="list">
+                            <a href="#" class="nav-link">
+                                <i class="bx bx-pie-chart-alt-2 icon"></i>
+                                <span class="link">Analytics</span>
+                            </a>
+                        </li>
+                        <li class="list">
+                            <a href="#" class="nav-link">
+                                <i class="bx bx-heart icon"></i>
+                                <span class="link">Likes</span>
+                            </a>
+                        </li>
+                        <li class="list">
+                            <a href="#" class="nav-link">
+                                <i class="bx bx-folder-open icon"></i>
+                                <span class="link">Files</span>
+                            </a>
+                        </li>*@
+                </ul>
+
+                <div class="bottom-cotent">
+                    <li class="list">
+                        <a href="#" class="nav-link">
+                            <i class="bx bx-cog icon"></i>
+                            <span class="link">Settings</span>
+                        </a>
+                    </li>
+                    <li class="list">
+                        <a href="#" class="nav-link">
+                            <i class="bx bx-log-out icon"></i>
+                            <span class="link">Logout</span>
+                        </a>
+                    </li>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+
+
+
+
+
+    <section class="overlay"></section>
+
+</body>
+</html>
+
+
+
+<script type="text/javascript" src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script type="text/javascript">
+
+
+    const navBar = document.querySelector("nav"),
+        menuBtns = document.querySelectorAll(".menu-icon"),
+        overlay = document.querySelector(".overlay");
+
+    menuBtns.forEach((menuBtn) => {
+        menuBtn.addEventListener("click", () => {
+            navBar.classList.toggle("open");
+        });
+    });
+
+    overlay.addEventListener("click", () => {
+        navBar.classList.remove("open");
+    });
+
+    $().ready(function () {
+
+        $("#adminuser").attr("disabled", "disabled");
+        $("#adminpass").attr("disabled", "disabled");
+        $("#user").attr("disabled", "disabled");
+        $("#pass").attr("disabled", "disabled");
+
+
+        var itmprice = $(this).closest('.prod').find('.price').html().split(':').pop();
+        alert(itmprice);
+
+        //btnBill
+
+
+    });
+
+
+    $("#btnConfirm").click(function () {
+
+        alert("PWD");
+        $("#pwdCard").show();
+        $("#pwdID").show();
+        $("#pwdName").show();
+        $("#pwdNamee").show();
+        $("#pwd").attr("disabled", "disabled");
+        $("#sc").attr("disabled", "disabled");
+
+
+
+
+    });
+
+    $("#sc").click(function () {
+
+        alert("SC");
+        $("#scID").show();
+        $("#scIDD").show();
+        $("#name").show();
+        $("#scName").show();
+        $("#sc").attr("disabled", "disabled");
+        $("#pwd").attr("disabled", "disabled");
+
+
+    });
+
+
+</script>
+
+
+
+

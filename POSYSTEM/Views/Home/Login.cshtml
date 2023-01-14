@@ -1,0 +1,165 @@
+﻿
+@{
+    ViewBag.Title = "Login";
+}
+
+
+
+<html>
+<head>
+    <style>
+        #btnLogin {
+            border-style: none;
+            border-radius: 5px;
+            background-color: #04AA6D;
+            padding: 8px 20px;
+            color: floralwhite;
+            font-family: 'system-ui';
+            text-transform: uppercase;
+            letter-spacing: .8px;
+            display: block;
+            margin: auto;
+            margin-top: 10px;
+            box-shadow: 2px 2px 5px rgb(0,0,0,0.2);
+            cursor: pointer;
+            /*  border-radius:100px; 
+*/
+        }
+
+            #btnLogin:hover {
+                opacity: 0.8;
+            }
+
+       
+
+        .form_class {
+            width: 500px;
+            padding: 40px;
+            border-radius: 8px;
+            background-color: white;
+            font-family: 'system-ui';
+            box-shadow: 5px 5px 10px rgb(0,0,0,0.3);
+            
+        }
+
+        .form_div {
+            text-transform: uppercase;
+        }
+
+            .form_div > label {
+                letter-spacing: 3px;
+                font-size: 1rem;
+            }
+
+        .field_class {
+            width: 100%;
+            border-radius: 6px;
+            border-style: solid;
+            border-width: 1px;
+            height: 20px;
+            width: 275px;
+            padding: 9px 0px;
+            text-indent: 9px;
+            margin-top: 3px;
+            margin-bottom: 5px;
+            font-family: 'system-ui';
+            font-size: 15px;
+        }
+
+        body {
+/*            background-color: #FFE6D4;
+*/            background-image: url('../../Image/login.jpg');
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container" style="block-size:fit-content; ">
+        <center>
+
+            <br />
+            <br />
+            <br />
+            <br />
+            <form id="login_form" class="form_class">
+
+                <div class="form_div">
+                    <h2>Login</h2>
+                    Username
+                    <input type="text" class="field_class" id="txtUser" name="txtUser" placeholder="Enter Username" />
+                    <br />
+                    Password
+                    <input type="password" class="field_class" id="txtPass" name="txtPass" placeholder="Enter Password" />
+                    <br />
+                    <input type="button" value="Login" id="btnLogin" name="txtLogin" style="width:25%;" />
+                    <br />
+                    <br />
+
+
+
+                </div>
+            </form>
+        </center>
+
+    </div>
+    <br />
+    <br />
+    <br />
+    <br />
+   
+</body>
+</html>
+
+<script type="text/javascript" src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script type="text/javascript">
+
+
+    $("#btnLogin").click(function () {
+        var user = $("#txtUser").val();
+        var pass = $("#txtPass").val();
+
+       
+
+        if (user == "" || user == null)
+        {
+            alert("Fields cannot be empty!");
+            return false;
+        }
+
+        if (pass == "" || pass == null) {
+            alert("Fields cannot be empty!");
+            return false;
+        }
+        $.post("../Home/Loginn", {
+            username: user,
+            password: pass
+
+        }, function (res) {
+
+            if (res[0].msg != 1) {
+                alert("Welcome " + user + "!");
+                window.open("../Home/ProductEntry", "PopupWindow", "width=1520, height= 1024");
+            //    window.location.href = "../Home/AllCategory";
+            }
+            else
+            {
+                alert("Account Denied!");
+            }
+        });
+
+
+
+
+    });
+
+
+    $("#btnSignUp").click(function () {
+
+        window.location.href = "../Home/CreateUser";
+       
+
+    });
+
+  
+
+</script>
